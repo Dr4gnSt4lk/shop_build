@@ -6,7 +6,6 @@ Widget propCard(
         String picture, String name, int newPrice, int oldPrice, int hour) =>
     Row(children: [
       Container(
-          height: 200,
           width: 355,
           decoration: BoxDecoration(
               color: elementColor, borderRadius: BorderRadius.circular(12)),
@@ -84,7 +83,7 @@ Widget propCard(
                         height: 110,
                         width: 110,
                         padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.only(top: 21, right: 7),
+                        margin: EdgeInsets.only(top: 21, right: 7, bottom: 5),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(width: 3, color: selectColor),
