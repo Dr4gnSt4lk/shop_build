@@ -24,7 +24,11 @@ class HomePage extends StatelessWidget {
                 backgroundColor: bgColor,
                 title: Text(
                   'Главная',
-                  style: TextStyle(color: selectColor, fontSize: 25),
+                  style: TextStyle(
+                    color: selectColor,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -57,9 +61,11 @@ class HomePage extends StatelessWidget {
                               width: 100,
                               child: TextField(
                                 decoration: InputDecoration(
-                                  hintText: "Поиск",
+                                  hintText: "Поиск...",
                                   hintStyle: TextStyle(
-                                      color: Color(0xFAFAFAFF), fontSize: 19),
+                                      color: Color(0xFAFAFAFF),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               )),
                         ]),
@@ -228,8 +234,9 @@ class HomePage extends StatelessWidget {
                                     child: AutoSizeText(
                                         'Большой медведь ${index + 1}',
                                         style: TextStyle(
-                                            fontSize: 16,
-                                            color: Color(0xFAFAFAFF)),
+                                            fontSize: 15,
+                                            color: Color(0xFAFAFAFF),
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center))),
                             Padding(
                                 padding: EdgeInsets.fromLTRB(11, 0, 11, 0),
@@ -289,7 +296,7 @@ class HomePage extends StatelessWidget {
                                               children: <Widget>[
                                             Container(
                                                 padding: EdgeInsets.only(
-                                                    left: 7, top: 3),
+                                                    left: 7, top: 5),
                                                 child: FittedBox(
                                                     fit: BoxFit.fitWidth,
                                                     child: Text(
@@ -303,23 +310,29 @@ class HomePage extends StatelessWidget {
                                                           color: Color(
                                                               0xFF567B59)),
                                                     ))),
-                                            Container(
-                                              padding: EdgeInsets.only(left: 6),
-                                              child: FittedBox(
-                                                fit: BoxFit.fitWidth,
-                                                child: Text(
-                                                    'От ' +
-                                                        ((500 + 100 * index) /
-                                                                12)
-                                                            .round()
-                                                            .toString() +
-                                                        '₽/ в мес.',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color:
-                                                            Color(0xFF567B59))),
-                                              ),
-                                            )
+                                            Transform.translate(
+                                                offset: Offset(0, -4),
+                                                child: Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 6, bottom: 4),
+                                                  child: FittedBox(
+                                                    fit: BoxFit.fitWidth,
+                                                    child: Text(
+                                                        'От ' +
+                                                            ((500 + 100 * index) /
+                                                                    12)
+                                                                .round()
+                                                                .toString() +
+                                                            '₽/ в мес.',
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            color: Color(
+                                                                0xFF567B59),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                  ),
+                                                ))
                                           ])),
                                       Container(
                                           child: IconButton(

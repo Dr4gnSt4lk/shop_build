@@ -7,8 +7,8 @@ Widget tagCard(String picture, String name) => Row(children: [
       InkWell(
         child: Column(children: [
           Container(
-            height: 75,
-            width: 78,
+            height: 78,
+            width: 83,
             padding: EdgeInsets.all(5),
             margin: EdgeInsets.only(bottom: 4),
             decoration: BoxDecoration(
@@ -19,17 +19,17 @@ Widget tagCard(String picture, String name) => Row(children: [
           ),
           Container(
               height: 34,
-              width: 78,
+              width: 83,
               padding: EdgeInsets.fromLTRB(2, 0, 0, 3),
               child: AutoSizeText(
                 name,
                 style: TextStyle(
-                    fontSize: 14,
-                    color: selectColor,
-                    fontWeight: FontWeight.w500,
-                    height: 1.15),
+                  fontSize: 14,
+                  color: selectColor,
+                  fontWeight: FontWeight.bold,
+                  height: 1.15,
+                ),
                 textAlign: TextAlign.center,
-                minFontSize: 11,
               )),
         ]),
         onTap: () {},

@@ -12,13 +12,13 @@ Widget propCard(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
-                padding: EdgeInsets.only(left: 18, top: 11),
+                padding: EdgeInsets.only(left: 18, top: 20),
                 child: Text(
                   'Ещё $hour часов скидка',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.bold),
                 )),
             Container(
                 padding: EdgeInsets.only(left: 18, top: 4),
@@ -38,16 +38,15 @@ Widget propCard(
                             Row(
                               children: [
                                 Container(
-                                    margin: EdgeInsets.only(top: 25, right: 5),
+                                    margin: EdgeInsets.only(top: 20, right: 5),
                                     child: Text(
                                       newPrice.toString() + ' ₽',
                                       style: TextStyle(
                                         color: Color(0xFAFAFAFF),
-                                        fontSize: 20,
                                       ),
                                     )),
                                 Container(
-                                    margin: EdgeInsets.only(top: 25),
+                                    margin: EdgeInsets.only(top: 22),
                                     child: Text(
                                       oldPrice.toString() + ' ₽',
                                       style: TextStyle(
@@ -62,7 +61,7 @@ Widget propCard(
                             ),
                             InkWell(
                               child: Container(
-                                  margin: EdgeInsets.only(top: 8),
+                                  margin: EdgeInsets.only(top: 7),
                                   height: 50,
                                   width: 135,
                                   decoration: BoxDecoration(
@@ -83,7 +82,7 @@ Widget propCard(
                         height: 110,
                         width: 110,
                         padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.only(top: 21, right: 7, bottom: 5),
+                        margin: EdgeInsets.only(top: 15, right: 7, bottom: 5),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(width: 3, color: selectColor),
