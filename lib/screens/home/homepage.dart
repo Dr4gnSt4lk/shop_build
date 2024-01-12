@@ -282,6 +282,7 @@ class HomePage extends StatelessWidget {
                             Container(
                                 margin: EdgeInsets.only(
                                     left: 10, right: 10, top: 8),
+                                //height: 53,
                                 decoration: BoxDecoration(
                                     color: const Color(0xFFF2FFEB),
                                     borderRadius: BorderRadius.circular(10)),
@@ -314,7 +315,7 @@ class HomePage extends StatelessWidget {
                                                 offset: Offset(0, -4),
                                                 child: Container(
                                                   padding: EdgeInsets.only(
-                                                      left: 6, bottom: 4),
+                                                      left: 6, bottom: 3),
                                                   child: FittedBox(
                                                     fit: BoxFit.fitWidth,
                                                     child: Text(

@@ -3,7 +3,7 @@ import 'package:shop_build/constants.dart';
 import 'package:shop_build/screens/home/homepage.dart';
 import 'package:shop_build/screens/settings/settingspage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shop_build/search/searchpage.dart';
+import 'package:shop_build/screens/search/searchpage.dart';
 
 void main() {
   runApp(const MainApp());
