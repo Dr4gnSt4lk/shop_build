@@ -21,6 +21,8 @@ dependencies:
   auto_size_text: ^3.0.0
   colorful_safe_area: ^1.0.0
   google_fonts: ^6.1.0
+  go_router: ^13.0.1
+  sliding_clipped_nav_bar: ^3.1.0+4
 
 dev_dependencies:
   flutter_test:

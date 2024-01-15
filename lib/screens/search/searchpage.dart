@@ -6,11 +6,11 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_build/constants.dart';
 import 'package:shop_build/sql_helper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -250,7 +250,7 @@ class _SearchPageState extends State<SearchPage> {
                 backgroundColor: elementColor,
                 title: !_searchBoolean
                     ? Text(
-                        'Медведи',
+                        'Результаты',
                         style: TextStyle(
                             color: Color(0xFAFAFAFF),
                             fontWeight: FontWeight.bold),
@@ -275,7 +275,7 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                 centerTitle: true,
                 leading: IconButton(
-                    onPressed: () => {},
+                    onPressed: () => {GoRouter.of(context).pop()},
                     icon: Transform.flip(
                         flipX: true,
                         child: SvgPicture.asset(

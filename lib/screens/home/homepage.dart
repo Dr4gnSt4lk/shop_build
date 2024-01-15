@@ -104,7 +104,7 @@ class HomePage extends StatelessWidget {
                             tagCard('icons/Cat.svg', 'Объёмные игрушки'),
                             tagCard('icons/Bird.svg', 'Маленькие игрушки'),
                             tagCard('icons/Croco.svg', 'Смешные игрушки'),
-                            tagCard('icons/Dog.svg', 'Спокойные игрушки')
+                            tagCard('icons/Dog.svg', 'Сезонные игрушки')
                           ],
                         )),
                     Container(
@@ -240,8 +240,7 @@ class HomePage extends StatelessWidget {
                                         textAlign: TextAlign.center))),
                             Padding(
                                 padding: EdgeInsets.fromLTRB(11, 0, 11, 0),
-                                child: Flexible(
-                                    child: Container(
+                                child: Container(
                                   height: 30,
                                   decoration: BoxDecoration(
                                       border: Border.all(
@@ -256,15 +255,15 @@ class HomePage extends StatelessWidget {
                                             EdgeInsets.only(left: 4, right: 10),
                                         child: Row(children: <Widget>[
                                           SvgPicture.asset('icons/Rating.svg',
-                                              width: 30, height: 25),
+                                              height: 25),
                                           SvgPicture.asset('icons/Rating.svg',
-                                              width: 30, height: 25),
+                                              height: 25),
                                           SvgPicture.asset('icons/Rating.svg',
-                                              width: 30, height: 25),
+                                              height: 25),
                                           SvgPicture.asset('icons/Rating.svg',
-                                              width: 30, height: 25),
+                                              height: 25),
                                           SvgPicture.asset('icons/Rating.svg',
-                                              width: 30, height: 25)
+                                              height: 25)
                                         ]),
                                       ),
                                       Container(
@@ -278,7 +277,7 @@ class HomePage extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                ))),
+                                )),
                             Container(
                                 margin: EdgeInsets.only(
                                     left: 10, right: 10, top: 8),
