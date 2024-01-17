@@ -52,6 +52,17 @@ class SQLHelper {
       days TEXT
     )""");
     //days - через сколько дней доставят пока что будет стоять 3 дня.
+
+    await database.execute("""CREATE TABLE favorites(
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      productId INTEGER,
+      customer TEXT,
+      title TEXT,
+      description TEXT,
+      price INTEGER,
+      image BLOB,
+      FOREIGN KEY (productId) REFERENCES products (id)
+    )""");
     print("Создание таблиц прошло успешно");
   }
 
@@ -364,4 +375,97 @@ if (isAuthenticated) {
             ),
      */
   }
+//добавление товара в таблицу избранное
+ static Future<void> addToFavorites(int productId, String customer) async {
+    final db = await SQLHelper.db();
+
+    // Получаем информацию о товаре из таблицы products
+    List<Map<String, dynamic>> product = await db.query('products',
+        where: 'id = ?', whereArgs: [productId]);
+
+    if (product.isNotEmpty) {
+      // Копируем данные товара в таблицу favorites
+      await db.insert('favorites', {
+        'productId': product[0]['id'],
+        'customer': customer,
+        'title': product[0]['title'],
+        'description': product[0]['description'],
+        'price': product[0]['price'],
+        'image': product[0]['image'],
+      });
+    }
+    // await SQLHelper.addToFavorites(productId, customer); - пример использования
+  }
+
+//получение списка товаров в избранном учитывая переменную customer
+  static Future<List<Map<String, dynamic>>> getFavoritesItems(String customer) async {
+    final db = await SQLHelper.db();
+    return db.query('favorites', where: 'customer = ?', whereArgs: [customer], orderBy: "id");
+  }
+  //получение id товара в избранном
+    static Future<List<Map<String, dynamic>>> getItemFromFavorites(int id) async {
+    final db = await SQLHelper.db();
+    return db.query('favorites', where: "id = ?", whereArgs: [id], limit: 1);
+  }
+  //Если пользователь захочет убрать товар из избранного
+    static Future<void> deleteItemFromFavorites(int id) async {
+    final db = await SQLHelper.db();
+    try {
+      await db.delete("basket", where: "id = ?", whereArgs: [id]);
+    } catch (err) {
+      debugPrint("Не получилось удалить товар из избранного: $err");
+    }
+  }
+//при клике на товар в избранном открываем страницу товара
+  static Future<Map<String, dynamic>?> getFavoriteProduct(int productId) async {
+    final db = await SQLHelper.db();
+
+    // Получаем информацию о товаре из таблицы products
+    List<Map<String, dynamic>> product = await db.query('products',
+        where: 'id = ?', whereArgs: [productId]);
+
+    if (product.isNotEmpty) {
+      return product[0];
+    } else {
+      // Если товар не найден (например, был удален), можно вернуть null или другое значение по умолчанию
+      return null;
+    }
+  }
+//Сравнение товаров
+  static int compareProducts(Map<String, dynamic> product1, Map<String, dynamic> product2) {
+    // Ваша логика сравнения товаров. Например, сравнение по цене.
+    // Возвращаем -1, 0 или 1 в зависимости от результата сравнения.
+
+    int price1 = product1['price'];
+    int price2 = product2['price'];
+
+    if (price1 < price2) {
+      return -1;
+    } else if (price1 > price2) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+  /** Пример использования
+   * // Получаем информацию о двух товарах из таблицы products
+Map<String, dynamic> product1 = await SQLHelper.getFavoriteProduct(productId1);
+Map<String, dynamic> product2 = await SQLHelper.getFavoriteProduct(productId2);
+
+if (product1 != null && product2 != null) {
+  // Сравниваем товары
+  int result = SQLHelper.compareProducts(product1, product2);
+
+  if (result < 0) {
+    print('Товар 1 дешевле чем товар 2');
+  } else if (result > 0) {
+    print('Товар 1 дороже чем товар 2');
+  } else {
+    print('Товары имеют одинаковую цену');
+  }
+} else {
+  print('Один из товаров не найден.');
+}
+   */
+
 }
