@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class SQLHelper {
@@ -216,7 +217,77 @@ static Future<List<Map<String, dynamic>>> sortByTag(String tag) async {
     //await SQLHelper.registerUser('Имя', 'Пароль', 'email@example.com'); - пример использования
 
   }
+//регистрация через гугл
+  static Future<void> registerUserGoogle(String name, String password, String email) async {
+  final db = await SQLHelper.db();
 
+  // Регистрация пользователя через Google
+  GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  if (googleUser == null) {
+    // Пользователь отменил вход через Google
+    print('Вход через Google отменен');
+    return;
+  }
+
+  // Дополнительная информация о пользователе
+  GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  String googleIdToken = googleAuth.idToken ?? "";
+
+  // Получаем реальный адрес электронной почты пользователя
+  String userEmail = googleUser.email;
+
+  // Проверяем, существует ли пользователь с таким email
+  List<Map<String, dynamic>> existingUsers = await db.query('users', where: 'email = ?', whereArgs: [userEmail]);
+
+  if (existingUsers.isNotEmpty) {
+    // Пользователь с таким email уже существует
+    print('Пользователь с таким email уже существует');
+    return;
+  }
+
+  // Вставляем нового пользователя
+  await db.insert('users', {
+    'name': name,
+    'password': googleIdToken,
+    'email': userEmail,
+  });
+
+  print('Пользователь успешно зарегистрирован через Google');
+  /**Пример использования
+   * class GoogleRegistrationScreen extends StatelessWidget {
+  final TextEditingController nameController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Google Registration'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(labelText: 'Name'),
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () async {
+                await registerUserGoogle(nameController.text);//Вызываем функцию
+                // После завершения регистрации, переходите на другой экран или выполняйте другие действия
+              },
+              child: Text('Register via Google'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+} */
+
+  }
 //авторизация
   static Future<bool> authenticateUser(String email, String password) async {
     final db = await SQLHelper.db();
@@ -245,7 +316,78 @@ if (isAuthenticated) {
 
      */
   }
+ // авторизация через гугл
+  static Future<void> loginUserGoogle() async {
+  final db = await SQLHelper.db();
 
+  try {
+    // Попытка входа через Google
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    if (googleUser == null) {
+      // Пользователь отменил вход через Google
+      print('Вход через Google отменен');
+      return;
+    }
+
+    // Дополнительная информация о пользователе
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    String googleIdToken = googleAuth.idToken ?? "";
+
+    // Проверяем, существует ли пользователь с таким googleIdToken
+    List<Map<String, dynamic>> existingUsers =
+        await db.query('users', where: 'password = "$googleIdToken"');
+
+    if (existingUsers.isNotEmpty) {
+      // Пользователь с таким googleIdToken уже существует
+      print('Пользователь с таким googleIdToken уже существует');
+      return;
+    }
+
+    // Вход пользователя в ваше приложение. Здесь может потребоваться дополнительная логика.
+
+    print('Пользователь успешно вошел через Google');
+  } catch (error) {
+    print('Ошибка входа через Google: $error');
+  }
+  /** Пример использования
+   * class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login with Google Example'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            loginUserWithGoogle(context);
+          },
+          child: Text('Login with Google'),
+        ),
+      ),
+    );
+  }
+
+  Future<void> loginUserWithGoogle(BuildContext context) async {
+    try {
+      // Вызов функции loginUserGoogle из QLHelper
+      await SQLHelper.loginUserGoogle();
+
+      // Дополнительная логика после успешного входа через Google, если необходимо
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Пользователь успешно вошел через google!'),
+      ));
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Ошибка: $error'),
+      ));
+    }
+  }
+}
+   */
+  }
 //Добавление в корзину
   static Future<void> addToBasket(int productId) async {
     final db = await SQLHelper.db();
