@@ -589,6 +589,7 @@ if (isAuthenticated) {
       return 0;
     }
   }
+  // ignore: slash_for_doc_comments
   /** Пример использования
    * // Получаем информацию о двух товарах из таблицы products
 Map<String, dynamic> product1 = await SQLHelper.getFavoriteProduct(productId1);
@@ -608,6 +609,59 @@ if (product1 != null && product2 != null) {
 } else {
   print('Один из товаров не найден.');
 }
-   */
+  */
+ //Нужно для обозначения иконки сердечка если товар в избранном
+static Future<bool> isProductFavorited(int productId, String customer) async {
+  final db = await SQLHelper.db();
 
+  // Проверяем, существует ли товар с заданным productId и customer в избранных
+  List<Map<String, dynamic>> favoritedProducts = await db.query(
+    'favorites',
+    where: 'productId = ? AND customer = ?',
+    whereArgs: [productId, customer],
+  );
+
+  // Если найден хотя бы один товар с таким productId и customer, значит, он в избранных
+  return favoritedProducts.isNotEmpty;
 }
+
+  /** Пример использования
+   * class _ProductWidgetState extends State<ProductWidget> {
+  bool isFavorited = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Вызываем функцию isProductFavorited при инициализации виджета
+    checkIfFavorited();
+  }
+
+  Future<void> checkIfFavorited() async {
+    // Вызываем функцию isProductFavorited, передавая productId текущего продукта
+    bool favorited = await isProductFavorited(widget.productId);
+
+    // Обновляем состояние виджета в зависимости от результата
+    setState(() {
+      isFavorited = favorited;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text('Product Title'),
+      trailing: IconButton(
+        icon: Icon(
+          isFavorited ? Icons.favorite : Icons.favorite_border,
+          color: isFavorited ? Colors.red : null,
+        ),
+        onPressed: () {
+          // Обработчик нажатия на иконку сердечка
+          // Можете добавить здесь логику для добавления/удаления продукта из избранного
+        },
+      ),
+    );
+  }
+   */
+}
+
