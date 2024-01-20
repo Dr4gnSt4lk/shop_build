@@ -86,7 +86,8 @@ class SQLHelper {
       String? inStock,
       String? tags,
       double? rating,
-      Uint8List? image) async {
+      Uint8List? image,
+      String? discountTime) async {
     final db = await SQLHelper.db();
   DateTime currentTime = DateTime.now();
   DateTime discountExpiration = currentTime.add(Duration(hours: 24));

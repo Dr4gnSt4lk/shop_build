@@ -54,6 +54,7 @@ class _SearchPageState extends State<SearchPage> {
       TextEditingController(); // Добавлено поле rating
 // Добавлен контроллер для изображения, учитывая, что вы используете BLOB
   final TextEditingController _imageController = TextEditingController();
+  final TextEditingController _discountTime = TextEditingController();
 
   final TextEditingController searchController = TextEditingController();
 
@@ -70,6 +71,7 @@ class _SearchPageState extends State<SearchPage> {
       _imageController.text.isNotEmpty
           ? base64Decode(_imageController.text)
           : null,
+          _discountTime.text
     );
     _refreshJournals();
   }
