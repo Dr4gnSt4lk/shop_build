@@ -10,7 +10,7 @@ class SuccessfulRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 3), () => context.goNamed('Login'));
+    Timer(Duration(seconds: 3), () => context.goNamed('Home'));
 
     return Scaffold(
         backgroundColor: elementColor,

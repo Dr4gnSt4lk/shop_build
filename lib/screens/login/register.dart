@@ -138,6 +138,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           } else {
                             await SQLHelper.registerUser(nameController.text,
                                 passwordController.text, emailController.text);
+                            bool isAuthenticated =
+                                await SQLHelper.authenticateUser(
+                                    emailController.text,
+                                    passwordController.text);
+                            if (isAuthenticated) {
+                              print(
+                                  'Пользователь успешно авторизован. Имя пользователя: ${SQLHelper.customer}');
+                            }
                             context.goNamed('SuccessReg');
                           }
                         },
@@ -167,7 +175,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                     height: 50,
                                   ),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  loginUserWithGoogle(context);
+                                },
                               ))),
                       SizedBox(width: 12),
                       Container(
@@ -196,5 +206,22 @@ class _RegisterPageState extends State<RegisterPage> {
             ],
           ),
         )));
+  }
+}
+
+Future<void> loginUserWithGoogle(BuildContext context) async {
+  try {
+    // Вызов функции loginUserGoogle из QLHelper
+    await SQLHelper.loginUserGoogle();
+
+    // Дополнительная логика после успешного входа через Google, если необходимо
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Пользователь успешно вошел через google!'),
+    ));
+  } catch (error) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Ошибка: $error'),
+    ));
   }
 }

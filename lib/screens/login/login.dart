@@ -137,7 +137,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             onTap: () {
-                              //await SQLHelper.loginUserGoogle();
                               loginUserWithGoogle(context);
                             },
                           ))),

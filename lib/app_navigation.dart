@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_build/mainwrapper.dart';
 import 'package:shop_build/screens/home/homepage.dart';
-import 'package:shop_build/screens/login/googleauth.dart';
 import 'package:shop_build/screens/login/login.dart';
 import 'package:shop_build/screens/login/successfulregister.dart';
 import 'package:shop_build/screens/search/searchpage.dart';
@@ -61,13 +60,6 @@ class AppNavigation {
               name: 'Register',
               builder: (context, state) {
                 return RegisterPage(key: state.pageKey);
-              },
-            ),
-            GoRoute(
-              path: 'googleauth',
-              name: 'GoogleAuth',
-              builder: (context, state) {
-                return GoogleAuth(key: state.pageKey);
               },
             )
           ]),
