@@ -60,25 +60,31 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> _addItem() async {
     await SQLHelper.createItem(
-      _titleController.text,
-      _descriptionController.text,
-      int.parse(_priceController.text),
-      int.parse(_discountController.text), // Парсинг discount
-      _inStockController.text,
-      _tagsController.text,
-      double.parse(_ratingController.text), // Парсинг rating
-      // Конвертация изображения в Uint8List (зависит от того, как вы храните изображение в приложении)
-      _imageController.text.isNotEmpty
-          ? base64Decode(_imageController.text)
-          : null,
-          _discountTime.text
-    );
+        _titleController.text,
+        _descriptionController.text,
+        int.parse(_priceController.text),
+        int.parse(_discountController.text), // Парсинг discount
+        _inStockController.text,
+        _tagsController.text,
+        double.parse(_ratingController.text), // Парсинг rating
+        // Конвертация изображения в Uint8List (зависит от того, как вы храните изображение в приложении)
+        _imageController.text.isNotEmpty
+            ? base64Decode(_imageController.text)
+            : null,
+        _discountTime.text);
     _refreshJournals();
   }
 
   Future<void> _search(String id) async {
     await SQLHelper.searchByName(searchController.text);
     final data = await SQLHelper.searchByName(searchController.text);
+    _journals = data;
+    _isLoading = false;
+  }
+
+  Future<void> _sort(String id) async {
+    await SQLHelper.sortByRatingDescending();
+    final data = await SQLHelper.sortByRatingDescending();
     _journals = data;
     _isLoading = false;
   }

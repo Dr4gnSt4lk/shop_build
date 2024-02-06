@@ -1,0 +1,9 @@
+flutter_native_splash:
+  color: "#A7CF9B"
+  image: logos/NewByteNex.png
+
+  android_12:
+    color: "#A7CF9B"
+    image: logos/NewByteNex.png
+
+  web: false

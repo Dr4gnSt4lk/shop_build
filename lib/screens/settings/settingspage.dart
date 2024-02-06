@@ -5,6 +5,7 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shop_build/constants.dart';
+import 'package:shop_build/sql_helper.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -62,7 +63,7 @@ class SettingsPage extends StatelessWidget {
                               children: <Widget>[
                                 Container(
                                   child: AutoSizeText(
-                                    'Гость',
+                                    SQLHelper.customer,
                                     style: TextStyle(
                                         color: selectColor,
                                         fontSize: 26,
