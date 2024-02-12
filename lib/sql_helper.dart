@@ -64,6 +64,13 @@ class SQLHelper {
       image BLOB,
       FOREIGN KEY (productId) REFERENCES products (id)
     )""");
+
+        await database.execute("""CREATE TABLE reviews(
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      username TEXT,
+      stars TEXT,
+      review TEXT
+    )""");
     print("Создание таблиц прошло успешно");
   }
 
@@ -664,5 +671,41 @@ static Future<bool> isProductFavorited(int productId, String customer) async {
     );
   }
    */
+ //Отзывы
+  static Future<void> addReview(String username, String stars, String review) async {
+    final db = await SQLHelper.db();
+
+    // Проверяем, существует ли уже отзыв от данного пользователя
+    List<Map<String, dynamic>> existingReviews = await db.query(
+      'reviews',
+      where: 'username = ?',
+      whereArgs: [customer],
+    );
+
+    if (existingReviews.isEmpty) {
+      // Если отзыва от данного пользователя еще нет, добавляем его
+      await db.insert('reviews', {
+        'username': username,
+        'stars': stars,
+        'review': review,
+      });
+    } else {
+      // Если отзыв уже есть, можем выполнить какое-то дополнительное действие,
+      // например, обновить существующий отзыв или вывести сообщение об ошибке.
+      print('Отзыв от пользователя $username уже существует');
+    }
+  }
+
+  static Future<void> deleteReview(String username) async {
+    final db = await SQLHelper.db();
+    
+    // Удаляем отзыв, если совпадает имя пользователя с customer
+    await db.delete('reviews', where: 'username = ?', whereArgs: [customer]);
+  }
+
+  static Future<List<Map<String, dynamic>>> getAllReviews() async {
+    final db = await SQLHelper.db();
+    return db.query('reviews');
+  }
 }
 

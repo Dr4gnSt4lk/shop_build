@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const splashColor = elementColor;
 const bgColor = Color(0xFFF2FFEB);
 const darkbgColor = Color(0xFFE2FFD2);
 const elementColor = Color(0xFFA7CF9B);
